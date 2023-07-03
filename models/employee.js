@@ -113,8 +113,39 @@ const EmployeeShema = mongoose.Schema({
   },
 });
 
+// EmployeeShema.methods.toJSON = function () {
+//   const { _id: id, __v, password, ...rest } = this.toObject();
+//   return {
+//     id,
+//     ...rest,
+//   };
+// };
+// Antes de que se elimine un documento de Employee, realiza esta acción
+EmployeeShema.pre("remove", function (next) {
+  // Elimina los documentos relacionados de Service que tengan este ID de Employee
+  this.model("Service").updateMany(
+    { _id: { $in: this.service } },
+    { $pull: { employees: this._id } },
+    next
+  );
+
+  // Elimina los documentos relacionados de Language que tengan este ID de Employee
+  this.model("Language").updateMany(
+    { _id: { $in: this.languages } },
+    { $pull: { employees: this._id } },
+    next
+  );
+
+  // Elimina los documentos relacionados de Experience que tengan este ID de Employee
+  this.model("Experience").updateMany(
+    { _id: { $in: this.experiences } },
+    { $pull: { employee: this._id } },
+    next
+  );
+});
+
 EmployeeShema.methods.toJSON = function () {
-  const { _id: id, __v, password, ...rest } = this.toObject();
+  const { _id: id, ...rest } = this.toObject();
   return {
     id,
     ...rest,

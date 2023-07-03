@@ -60,6 +60,20 @@ const putServicesById = async (req = request, res = response) => {
   }
 };
 
+const updateService = async (req = request, res = response) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    const service = await Service.findByIdAndUpdate(id, body);
+    return res.json({ message: "El puesto ha sido actualizado" });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      message: "Service not found",
+    });
+  }
+};
+
 const deleteService = async (req = request, res = response) => {
   try {
     const { idService } = req.params;
@@ -80,4 +94,5 @@ module.exports = {
   getServicesById,
   putServicesById,
   deleteService,
+  updateService,
 };

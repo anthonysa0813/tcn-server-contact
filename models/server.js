@@ -22,6 +22,7 @@ class Server {
       knoledge: "/api/knoledge",
       contracts: "/api/contracts",
       upload: "/api/upload",
+      employeeJob: "/api/employeeJob",
     };
     this.middleware();
     this.router();
@@ -61,6 +62,7 @@ class Server {
     this.app.use(this.paths.experience, require("../routes/experience"));
     this.app.use(this.paths.knoledge, require("../routes/knoledge"));
     this.app.use(this.paths.upload, require("../routes/upload"));
+    this.app.use(this.paths.employeeJob, require("../routes/employeeJob"));
   }
 
   listen() {

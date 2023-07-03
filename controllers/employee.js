@@ -24,9 +24,15 @@ const getEmployees = async (req = request, res = response) => {
         .limit(Number(limit))
         .skip(Number(offset));
       const total = await Employee.countDocuments();
+      const usersNotApply = users.filter((user) => {
+        if (user.service.length == 0) {
+          return user;
+        }
+      });
 
       return res.json({
         users,
+        usersNotApply,
         total,
       });
     } else {
@@ -409,14 +415,19 @@ const updateEmployeeJobStatus = async (req = request, res = response) => {
   try {
     const { idJobStatus, idEmployee } = req.params;
     const { status } = req.body;
-    const employeeJobStatus = await EmployeeJobStatus.find().where({service: idJobStatus}).where({employee: idEmployee});
+    const employeeJobStatus = await EmployeeJobStatus.find()
+      .where({ service: idJobStatus })
+      .where({ employee: idEmployee });
+
+    // enviar un correo al usuario
+    console.log({ status });
 
     //console.log({idJobStatus, idEmployee, status, employeeJobStatus});
     // return res.json({employeeJobStatus})
-   
+
     employeeJobStatus[0].status = status;
     employeeJobStatus[0].save();
-    return res.json({ message: "se ha modificado" }); 
+    return res.json({ message: "se ha modificado" });
   } catch (error) {
     return res.status(500).json({
       message: "Hubo un error",
@@ -504,4 +515,3 @@ module.exports = {
   getAllApplicationsJobByEmployeeId,
   updateEmployeeJobStatus,
 };
-

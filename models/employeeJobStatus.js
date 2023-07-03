@@ -16,8 +16,21 @@ const EmployeeJobStatusSchema = new Schema({
   status: {
     type: String,
     required: false,
-    default: ""
+    default: "",
   },
+  confirm: {
+    type: Boolean,
+    required: false,
+  },
+});
+
+EmployeeJobStatusSchema.pre("remove", function (next) {
+  // Elimina la referencia a este documento en la propiedad "employee" del modelo Employee
+  this.model("Employee").updateOne(
+    { _id: this.employee },
+    { $pull: { jobStatus: this._id } },
+    next
+  );
 });
 
 const model = mongoose.model("EmployeeJobStatus", EmployeeJobStatusSchema);

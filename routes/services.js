@@ -5,6 +5,7 @@ const {
   getServicesById,
   putServicesById,
   deleteService,
+  updateService,
 } = require("../controllers/services");
 const validateJWT = require("../helpers/validate-jwt");
 const validationFields = require("../middlewares/validationFields");
@@ -38,6 +39,12 @@ router.put(
   ],
   putServicesById
 );
+
+router.put("/update/:id", [
+  validateJWT,
+  check("id", "el id debe de ser un mongoId").isMongoId(),
+  updateService,
+]);
 
 // Eliminando el servicio
 router.delete(

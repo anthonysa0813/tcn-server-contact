@@ -41,6 +41,14 @@ const ServiceSchema = new Schema(
       type: String,
       required: false,
     },
+    supervisor: {
+      type: String,
+      required: false,
+    },
+    whatsapp: {
+      type: String,
+      required: false,
+    },
     employees: [
       {
         type: Schema.Types.ObjectId,
