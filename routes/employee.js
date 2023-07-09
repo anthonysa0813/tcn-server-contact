@@ -18,6 +18,7 @@ const {
   addEmployeeJobStatus,
   getAllApplicationsJobByEmployeeId,
   updateEmployeeJobStatus,
+  applyFilterByJob,
 } = require("../controllers/employee");
 const existIdEmployee = require("../helpers/isValidIdEmployee");
 const validateJWT = require("../helpers/validate-jwt");
@@ -26,8 +27,9 @@ const { validateFile } = require("../middlewares/validationFile");
 
 const router = Router();
 
+router.get("/search", applyFilterByJob);
 // filter: busca employees por el estado de trabajo del usuario ("DESCARTADO, SELECCIONADO, CONTRATAD")
-router.get("/search", [validateJWT, validationFields], searchEmployee);
+// router.get("/search", [validateJWT, validationFields], searchEmployee);
 // trae todos los employees
 router.get("/", [validateJWT, validationFields], getEmployees);
 // traer un employee by Id

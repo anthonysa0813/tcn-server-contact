@@ -4,20 +4,27 @@ const Experience = require("../models/Experience");
 
 // traer una experiencia por usuario
 const getExperienceByEmployee = async (req, res) => {
-  const { idEmployee } = req.params;
+  try {
+    const { idEmployee } = req.params;
 
-  const employee = await Employee.findById(idEmployee);
-  if (!employee) {
-    return res.status(400).json({
-      message: "El usuario no existe",
+    const employee = await Employee.findById(idEmployee);
+    if (!employee) {
+      return res.status(400).json({
+        message: "El usuario no existe",
+      });
+    }
+
+    const experiences = await Experience.find()
+      .where("employee")
+      .equals(idEmployee);
+
+    res.json(experiences);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "Hubo un error",
     });
   }
-
-  const experiences = await Experience.find()
-    .where("employee")
-    .equals(idEmployee);
-
-  res.json(experiences);
 };
 
 // crear una experiencia para un usuario
@@ -110,4 +117,3 @@ module.exports = {
   deleteExperience,
   getUniqueExperience,
 };
-

@@ -116,7 +116,7 @@ async function mailNodeSendHiredUser(email, name, titleCampaign, whatsapp) {
       <tr>
            <td>
           <strong>Whatsapp:</strong><a href="${whatsapp}" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;margin: 0 0 0 30px">
-                   ${whatsapp}
+            https://wa.me/51${whatsapp}?text=Hola  
            </a>
         </td>
       </tr>

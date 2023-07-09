@@ -110,12 +110,12 @@ async function mailNodeSendSelection(
        <table class="darkmode-transparent" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation">
           <tr style="width:400px;">
              <td  style="border-radius:10px;" >
-                <a  href="http://localhost:5050/api/employeeJob/confirm?response=si&idService=${idService}&idUser=${idUser}" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;">
+                <a  href="https://new-tcn-client.vercel.app/api/employeeJob/confirm?response=si&idService=${idService}&idUser=${idUser}" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;">
                    ¡QUIERO CONTINUAR!
                 </a>
              </td>
             <td>
-              <a href="http://localhost:5050/api/employeeJob/confirm?response=no&idService=${idService}&idUser=${idUser}" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;margin: 0 0 0 30px">
+              <a href="https://new-tcn-client.vercel.app/api/employeeJob/confirm?response=no&idService=${idService}&idUser=${idUser}" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;margin: 0 0 0 30px">
                   NO POR ESTA VEZ, YA CONSEGUÍ TRABAJO 
                 </a>
             </td>
@@ -151,7 +151,7 @@ async function mailNodeSendSelection(
           <tr>
               <td>
               <strong>Whatsapp:</strong><a href="https://work.contactamericas.com/" target="_blank" style="font-size: 17px;font-weight: bold;text-decoration: none;color: #1e5d7b;background-color: #EFF8FE;border:1px solid #EFF8FE;border-radius:10px;padding:12px 20px;display: inline-block;margin: 0 0 0 30px">
-                      ${whatsapp}
+                    https://wa.me/51${whatsapp}?text=Hola  
               </a>
             </td>
           </tr>

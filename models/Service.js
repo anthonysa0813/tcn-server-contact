@@ -29,6 +29,11 @@ const ServiceSchema = new Schema(
       required: false,
       default: true,
     },
+    localCurrency: {
+      type: String,
+      required: false,
+      default: "PEN",
+    },
     type: {
       type: String,
       required: false,

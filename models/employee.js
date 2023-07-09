@@ -22,6 +22,10 @@ const EmployeeShema = mongoose.Schema({
     type: String,
     required: [true, "El password es requerido"],
   },
+  district: {
+    type: String,
+    required: false,
+  },
   message: {
     type: String,
     required: false,

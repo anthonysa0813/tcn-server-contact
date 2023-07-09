@@ -22,7 +22,8 @@ const getEmployees = async (req = request, res = response) => {
       const users = await Employee.find()
         .populate("service")
         .limit(Number(limit))
-        .skip(Number(offset));
+        .skip(Number(offset))
+        .sort({ createdAt: 1 });
       const total = await Employee.countDocuments();
       const usersNotApply = users.filter((user) => {
         if (user.service.length == 0) {
@@ -167,6 +168,11 @@ const addServiceToEmployee = async (req = request, res = response) => {
       employee.service = [...employee.service, idService];
       employee.servicesId = [...employee.servicesId, idService];
       service.employees = [...service.employees, idEmployee];
+      const employeeJobStatus = new EmployeeJobStatus({
+        employee: idEmployee,
+        service: idService,
+      });
+      employeeJobStatus.save();
       employee.save();
       service.save();
       return res.status(200).json(employee);
@@ -497,6 +503,39 @@ const createRelationJobEmployeeStatus = async (
   }
 };
 
+const applyFilterByJob = async (req = request, res = response) => {
+  try {
+    const { idService, search, type } = req.query;
+    const resultService = await Service.findById(idService).populate(
+      "employees"
+    );
+    const employees = resultService.employees;
+    if (type === "district") {
+      const regex = new RegExp(search, "i");
+      const response = employees.filter((employee) =>
+        regex.test(employee.district)
+      );
+      return res.json(response);
+    } else if (type === "country") {
+      const regex = new RegExp(`\\b${search}\\b`, "i");
+      const response = employees.filter((employee) =>
+        regex.test(employee.country)
+      );
+      return res.json(response);
+    } else {
+      const searchLowercase = search.toLowerCase(); // Convertir a minúsculas
+      const response = employees.filter((employee) =>
+        employee.email.toLowerCase().includes(searchLowercase)
+      );
+      return res.json(response);
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getEmployees,
   postEmployee,
@@ -514,4 +553,5 @@ module.exports = {
   addEmployeeJobStatus,
   getAllApplicationsJobByEmployeeId,
   updateEmployeeJobStatus,
+  applyFilterByJob,
 };
